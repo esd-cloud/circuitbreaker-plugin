@@ -11,10 +11,12 @@ namespace ESD\Plugins\CircuitBreaker;
 
 use Ackintosh\Ganesha;
 use Ackintosh\Ganesha\Configuration;
+use ESD\Core\Plugins\Logger\GetLogger;
 use ESD\Psr\Cloud\CircuitBreaker;
 
 class GaneshaCircuitBreaker extends Ganesha implements CircuitBreaker
 {
+    use GetLogger;
     private static $enable = true;
 
     /**
@@ -62,9 +64,9 @@ class GaneshaCircuitBreaker extends Ganesha implements CircuitBreaker
     public function setEnable($enable)
     {
         self::$enable = $enable;
-        if($enable){
+        if ($enable) {
             self::enable();
-        }else{
+        } else {
             self::disable();
         }
     }
@@ -72,5 +74,28 @@ class GaneshaCircuitBreaker extends Ganesha implements CircuitBreaker
     public function isEnable()
     {
         return self::$enable;
+    }
+
+    public function isAvailable($service)
+    {
+        $result = parent::isAvailable($service);
+        if ($result) {
+            $this->debug("Service $service availability");
+        } else {
+            $this->debug("Service $service unavailability");
+        }
+        return $result;
+    }
+
+    public function failure($service)
+    {
+        parent::failure($service);
+        $this->debug("Service $service tag failure");
+    }
+
+    public function success($service)
+    {
+        parent::success($service);
+        $this->debug("Service $service tag success");
     }
 }
