@@ -1,0 +1,30 @@
+{
+  "require": {
+    "esd/esd-core": "~0.1",
+    "esd/redis-plugin": "~0.1",
+    "ackintosh/ganesha": "^0.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ESD\\Plugins\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "tmtbe",
+      "email": "896369042@qq.com",
+      "homepage": "https://github.com/tmtbe"
+    }
+  ],
+  "name": "esd-cloud/circuitbreaker-plugin",
+  "type": "library",
+  "keywords": ["server", "swoole"],
+  "description": "circuitbreaker-plugin",
+  "license": "MIT",
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.laravel-china.org"
+    }
+  }
+}
